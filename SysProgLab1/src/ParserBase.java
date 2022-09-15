@@ -20,7 +20,7 @@ public class ParserBase implements IParser {
             System.out.println(ex.getMessage());
         }
         String[] result = RawTextToSplitAndCutAndUnique(text.toString());
-        Arrays.sort(result, Comparator.comparingInt(String::length));
+        Arrays.sort(result, new MyComparator());
         return result;
     }
 
@@ -40,7 +40,7 @@ public class ParserBase implements IParser {
     }
 
     public String[] RawTextToWordsOnly(String text) {
-        Pattern pattern = Pattern.compile("[a-zA-Z0-9]*");
+        Pattern pattern = Pattern.compile("[a-zA-Z0-9-]*");
         Matcher matcher = pattern.matcher(text);
         List<String> allMatches = new ArrayList<>();
         while (matcher.find()) {
@@ -67,6 +67,18 @@ public class ParserBase implements IParser {
                 System.out.println();
                 i = 0;
             }
+        }
+    }
+
+    public static class MyComparator implements Comparator<String>{
+        @Override
+        public int compare(String o1, String o2) {
+            if (o1.length() > o2.length()) {
+                return 1;
+            } else if (o1.length() < o2.length()) {
+                return -1;
+            }
+            return o1.compareTo(o2);
         }
     }
 }
