@@ -24,7 +24,7 @@ public class Main {
 
             Set<Integer> states = nfa.processWord(word);
             System.out.println("Processed word " + word + ", processing ended in the following states: ");
-            printIterableInline(states, "\\t", " ");
+            printIterableInline(states, "\t", " ");
         } catch (FileNotFoundException ex) {
             System.out.println("Invalid file pathname");
         }
